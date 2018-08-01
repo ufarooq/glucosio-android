@@ -77,6 +77,31 @@ public class FormatDateTime {
         return finalData + " " + finalTime;
     }
 
+    public String convertDateBetweenFormats(String dateString, String inputFormatSpec, String outputFormatSpec) {
+        DateFormat inputFormat = new SimpleDateFormat(inputFormatSpec);
+        DateFormat finalDataFormat = new SimpleDateFormat(outputFormatSpec);
+
+        Date parsed = null;
+        try {
+            parsed = inputFormat.parse(dateString);
+            // Because database's average is the end of the month
+            // we need to remove 1 month from final date
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(parsed);
+            cal.add(Calendar.MONTH, -1);
+            parsed = cal.getTime();
+        } catch (ParseException e) {
+            reportToFirebase(e);
+            e.printStackTrace();
+        }
+        String finalData = finalDataFormat.format(parsed);
+        return finalData + " ";
+    }
+
+    public String convertDateToDayOverview(String date) {
+        return convertDateBetweenFormats(date, "yyyy-MM-dd HH:mm", "dd MMM");
+    }
+
     public String convertDateToMonthOverview(String date) {
         DateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         DateFormat finalDataFormat = new SimpleDateFormat("MMMM");

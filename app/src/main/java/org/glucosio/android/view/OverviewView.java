@@ -11,5 +11,8 @@ public interface OverviewView {
     String convertDateToMonth(@NonNull final String date);
 
     @NonNull
+    String convertDateForDay(@NonNull final String date);
+
+    @NonNull
     String getString(@StringRes final int stringId);
 }

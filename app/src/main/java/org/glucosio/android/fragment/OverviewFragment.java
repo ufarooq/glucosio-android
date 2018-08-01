@@ -52,6 +52,7 @@ import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.LimitLine;
+import com.github.mikephil.charting.components.MarkerView;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
@@ -68,6 +69,7 @@ import org.glucosio.android.tools.GlucoseRanges;
 import org.glucosio.android.tools.GlucosioConverter;
 import org.glucosio.android.tools.ReadingTools;
 import org.glucosio.android.tools.TipsManager;
+import org.glucosio.android.view.ChartMarkerView;
 import org.glucosio.android.view.OverviewView;
 
 import java.text.NumberFormat;
@@ -308,6 +310,11 @@ public class OverviewFragment extends Fragment implements OverviewView {
         leftAxis.addLimitLine(ll2);
         leftAxis.setDrawLimitLinesBehindData(true);
 
+        ChartMarkerView marker = new ChartMarkerView(getContext(), R.layout.chart_marker_view);
+        marker.setOffset(0, -marker.getMeasuredHeight());
+        chart.setMarker(marker);
+        chart.setTouchEnabled(true);
+
         chart.getAxisRight().setEnabled(false);
         chart.setBackgroundColor(Color.parseColor("#FFFFFF"));
         chart.setGridBackgroundColor(Color.parseColor("#FFFFFF"));
@@ -465,7 +472,7 @@ public class OverviewFragment extends Fragment implements OverviewView {
         if (graphSpinnerRange.getSelectedItemPosition() == 0) {
             // Day view
             for (int i = 0; i < presenter.getGraphGlucoseDateTime().size(); i++) {
-                String date = presenter.convertDate(presenter.getGraphGlucoseDateTime().get(i));
+                String date = presenter.convertDateForDay(presenter.getGraphGlucoseDateTime().get(i));
                 xVals.add(date);
             }
         } else if (graphSpinnerRange.getSelectedItemPosition() == 1) {
@@ -722,6 +729,11 @@ public class OverviewFragment extends Fragment implements OverviewView {
         return dateTime.convertDate(date);
     }
 
+    @NonNull
+    public String convertDateForDay(@NonNull final String date) {
+        FormatDateTime dateTime = new FormatDateTime(getActivity().getApplicationContext());
+        return dateTime.convertDateToDayOverview(date);
+    }
     @NonNull
     public String convertDateToMonth(@NonNull final String date) {
         FormatDateTime dateTime = new FormatDateTime((getActivity().getApplication()));

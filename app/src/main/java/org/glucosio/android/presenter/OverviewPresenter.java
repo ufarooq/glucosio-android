@@ -33,7 +33,6 @@ import org.joda.time.Days;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
-import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -75,6 +74,9 @@ public class OverviewPresenter {
         this.glucoseMinValue = dB.getUser(1).getCustom_range_min();
     }
 
+    public String convertDateForDay(String date) {
+        return view.convertDateForDay(date);
+    }
     public String convertDate(String date) {
         return view.convertDate(date);
     }
@@ -119,7 +121,7 @@ public class OverviewPresenter {
     }
 
     public String getLastReading() {
-        return String.valueOf(NumberFormat.getInstance().format(dB.getLastGlucoseReading().getReading()));
+        return dB.getLastGlucoseReading().getReading() + "";
     }
 
     public String getLastDateTime() {

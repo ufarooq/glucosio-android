@@ -25,7 +25,7 @@ apply plugin: 'realm-android'
 
 android {
     compileSdkVersion buildConfig.compileSdk
-    buildToolsVersion buildConfig.buildTools
+    buildToolsVersion '28.0.1'
 
     lintOptions {
         abortOnError false
@@ -97,26 +97,21 @@ repositories {
 
 dependencies {
     wearApp project(':wear')
-
     // Android Support libraries
     implementation deps.android.support.wearable
-
     implementation deps.android.support.design
     implementation deps.android.support.cardView
     implementation deps.android.support.recyclerView
     implementation deps.android.support.percent
-
     // Google Play Services
     implementation deps.android.gms.analytics
     implementation deps.android.gms.drive
     implementation deps.android.gms.gcm
     implementation deps.android.gms.wearable
-
     // Firebase
     implementation deps.google.firebase.crash
     implementation deps.google.firebase.invites
     implementation deps.google.firebase.messaging
-
     // Other libraries
     implementation deps.ChrisJenx.calligraphy
     implementation deps.DanLew.androidJoda
@@ -125,21 +120,17 @@ dependencies {
     }
     implementation deps.PaoloRotolo.expandableHeightListView
     implementation deps.PhilJay.mpAndroidChart
-
     // Butterknife
     implementation deps.JakeWharton.butterKnife.core
     annotationProcessor deps.JakeWharton.butterKnife.compiler
-
     // Tests
     testImplementation deps.junit
     testImplementation deps.mockito
     testImplementation deps.square.assertJAndroid
     testImplementation deps.robolectric.core
     testImplementation deps.robolectric.shadows
-
     // This is for Mockito and Realm (TODO: find clean solution)
     testImplementation 'io.reactivex.rxjava2:rxjava:2.1.14'
-
     // Instrumental Tests
     androidTestImplementation deps.android.test.runner
     androidTestImplementation deps.android.test.rules
